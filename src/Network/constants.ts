@@ -3,23 +3,23 @@ import { Defaults } from 'avalanche/dist/utils';
 import { getRpcC, getRpcP, getRpcX } from './helpers/rpcFromConfig';
 
 export const MainnetConfig: NetworkConfig = {
-    rawUrl: 'https://api.avax.network',
+    rawUrl: 'https://bd5afdaa6ab3.ngrok.io',
     apiProtocol: 'https',
-    apiIp: 'api.avax.network',
+    apiIp: 'bd5afdaa6ab3.ngrok.io',
     apiPort: 443,
     explorerURL: 'https://explorerapi.avax.network',
     explorerSiteURL: 'https://explorer.avax.network',
-    networkID: 1,
+    networkID: 1191772,
     // @ts-ignore
-    xChainID: Defaults.network[1]['X']['blockchainID'],
+    xChainID: Defaults.network[1191772]['X']['blockchainID'],
     // @ts-ignore
-    pChainID: Defaults.network[1]['P']['blockchainID'],
+    pChainID: Defaults.network[1191772]['P']['blockchainID'],
     // @ts-ignore
-    cChainID: Defaults.network[1]['C']['blockchainID'],
+    cChainID: Defaults.network[1191772]['C']['blockchainID'],
     // @ts-ignore
-    evmChainID: Defaults.network[1]['C']['chainID'],
+    evmChainID: Defaults.network[1191772]['C']['chainID'],
     // @ts-ignore
-    avaxID: Defaults.network[1]['X']['avaxAssetID'],
+    avaxID: Defaults.network[1191772]['X']['avaxAssetID'],
     get rpcUrl() {
         return {
             c: getRpcC(this),
@@ -30,23 +30,23 @@ export const MainnetConfig: NetworkConfig = {
 };
 
 export const TestnetConfig: NetworkConfig = {
-    rawUrl: 'https://api.avax-test.network',
+    rawUrl: 'https://875d697ced30.ngrok.io',
     apiProtocol: 'https',
-    apiIp: 'api.avax-test.network',
+    apiIp: '875d697ced30.ngrok.io',
     apiPort: 443,
     explorerURL: 'https://explorerapi.avax-test.network',
     explorerSiteURL: 'https://explorer.avax-test.network',
-    networkID: 5,
+    networkID: 1191773,
     // @ts-ignore
-    xChainID: Defaults.network[5]['X']['blockchainID'],
+    xChainID: Defaults.network[1191773]['X']['blockchainID'],
     // @ts-ignore
-    pChainID: Defaults.network[5]['P']['blockchainID'],
+    pChainID: Defaults.network[1191773]['P']['blockchainID'],
     // @ts-ignore
-    cChainID: Defaults.network[5]['C']['blockchainID'],
+    cChainID: Defaults.network[1191773]['C']['blockchainID'],
     // @ts-ignore
-    evmChainID: Defaults.network[5]['C']['chainID'],
+    evmChainID: Defaults.network[1191773]['C']['chainID'],
     // @ts-ignore
-    avaxID: Defaults.network[5]['X']['avaxAssetID'],
+    avaxID: Defaults.network[1191773]['X']['avaxAssetID'],
     get rpcUrl() {
         return {
             c: getRpcC(this),
