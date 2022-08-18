@@ -1,4 +1,4 @@
-import { BinTools } from 'avalanche';
+import { BinTools } from '@metalblockchain/metaljs';
 
 export const bintools = BinTools.getInstance();
 

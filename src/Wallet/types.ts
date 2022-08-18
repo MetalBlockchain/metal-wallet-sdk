@@ -1,6 +1,6 @@
-import { KeyPair as AVMKeyPair } from 'avalanche/dist/apis/avm';
+import { KeyPair as AVMKeyPair } from '@metalblockchain/metaljs/dist/apis/avm';
 
-import { BN } from 'avalanche';
+import { BN } from '@metalblockchain/metaljs';
 
 import { MnemonicWallet } from '@/Wallet/MnemonicWallet';
 import { SingletonWallet } from '@/Wallet/SingletonWallet';

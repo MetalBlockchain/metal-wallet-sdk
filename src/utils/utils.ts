@@ -1,7 +1,7 @@
-import { Buffer as BufferAvalanche } from 'avalanche';
+import { Buffer as BufferAvalanche } from '@metalblockchain/metaljs';
 import { validateAddress } from '@/helpers/address_helper';
 import createHash from 'create-hash';
-import { PayloadBase, PayloadTypes } from 'avalanche/dist/utils';
+import { PayloadBase, PayloadTypes } from '@metalblockchain/metaljs/dist/utils';
 
 /**
  * Checks if address is valid.

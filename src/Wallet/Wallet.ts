@@ -27,7 +27,7 @@ import {
     estimateAvaxGas,
     estimateErc20Gas,
 } from '@/helpers/tx_helper';
-import { BN, Buffer } from 'avalanche';
+import { BN, Buffer } from '@metalblockchain/metaljs';
 import { FeeMarketEIP1559Transaction, Transaction } from '@ethereumjs/tx';
 import { activeNetwork, avalanche, cChain, pChain, web3, xChain } from '@/Network/network';
 import { EvmWallet } from '@/Wallet/EVM/EvmWallet';
@@ -48,7 +48,7 @@ import {
     Tx as AvmTx,
     AVMConstants,
     AmountOutput,
-} from 'avalanche/dist/apis/avm';
+} from '@metalblockchain/metaljs/dist/apis/avm';
 import {
     UTXOSet as PlatformUTXOSet,
     UTXO as PlatformUTXO,
@@ -56,10 +56,14 @@ import {
     Tx as PlatformTx,
     PlatformVMConstants,
     StakeableLockOut,
-} from 'avalanche/dist/apis/platformvm';
-import { UnsignedTx as EVMUnsignedTx, Tx as EVMTx, UTXOSet as EVMUTXOSet } from 'avalanche/dist/apis/evm';
+} from '@metalblockchain/metaljs/dist/apis/platformvm';
+import {
+    UnsignedTx as EVMUnsignedTx,
+    Tx as EVMTx,
+    UTXOSet as EVMUTXOSet,
+} from '@metalblockchain/metaljs/dist/apis/evm';
 
-import { PayloadBase, UnixNow } from 'avalanche/dist/utils';
+import { PayloadBase, UnixNow } from '@metalblockchain/metaljs/dist/utils';
 import { getAssetDescription } from '@/Asset/Assets';
 import { getErc20Token } from '@/Asset/Erc20';
 import { NO_NETWORK } from '@/errors';
@@ -79,7 +83,7 @@ import {
     UniversalTx,
 } from '@/UniversalTx';
 import { UniversalNodeAbstract } from '@/UniversalTx/UniversalNode';
-import { GetStakeResponse } from 'avalanche/dist/apis/platformvm/interfaces';
+import { GetStakeResponse } from '@metalblockchain/metaljs/dist/apis/platformvm/interfaces';
 import { networkEvents } from '@/Network/eventEmitter';
 import { NetworkConfig } from '@/Network';
 import { chainIdFromAlias } from '@/Network/helpers/idFromAlias';

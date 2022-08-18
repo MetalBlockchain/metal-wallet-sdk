@@ -49,8 +49,8 @@ jest.mock('@/Asset/Assets', () => {
                 case 'U8iRqJoiJm8xZHAacmvYyZVwqQx6uDNtQeP3CQ6fcgQk3JqnK':
                     return {
                         assetID: 'U8iRqJoiJm8xZHAacmvYyZVwqQx6uDNtQeP3CQ6fcgQk3JqnK',
-                        name: 'Avalanche',
-                        symbol: 'AVAX',
+                        name: 'Metal',
+                        symbol: 'METAL',
                         denomination: 9,
                     };
                 case 'wxTqKYimwaGNsvnk7WBRq3FyattSuYfoWwrwXvHsEw7QnHhjK':

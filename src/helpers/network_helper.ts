@@ -1,6 +1,6 @@
 import { NetworkConfig } from '@/Network/types';
 
-import { Avalanche } from 'avalanche';
+import { Metal } from '@metalblockchain/metaljs';
 import { HttpClient } from './http_client';
 
 export function wsUrlFromConfigX(config: NetworkConfig): string {
@@ -37,7 +37,7 @@ export async function getNetworkIdFromURL(url: string): Promise<number> {
 }
 
 export function createAvalancheProvider(config: NetworkConfig) {
-    return new Avalanche(config.apiIp, config.apiPort, config.apiProtocol, config.networkID);
+    return new Metal(config.apiIp, config.apiPort, config.apiProtocol, config.networkID);
 }
 
 /**

@@ -1,6 +1,6 @@
 import { iHistoryEVMTx } from '@/History/types';
 import { bnToAvaxC } from '@/utils';
-import { BN } from 'avalanche';
+import { BN } from '@metalblockchain/metaljs';
 import { OrteliusEvmTx } from '@/Explorer';
 
 export function getTransactionSummaryEVM(tx: OrteliusEvmTx, walletAddress: string): iHistoryEVMTx {

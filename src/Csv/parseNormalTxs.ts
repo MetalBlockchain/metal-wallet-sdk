@@ -28,13 +28,13 @@ export function parseNormalTxs(txs: HistoryItemType[]) {
             rows.push(...tokenRows);
         } else if (isHistoryImportExportTx(tx)) {
             const amtStr = bnToBigAvaxX(tx.amount).toString();
-            rows.push([tx.id, dateStr, tx.type, 'AVAX', amtStr, '', `${tx.source} to ${tx.destination}`]);
+            rows.push([tx.id, dateStr, tx.type, 'METAL', amtStr, '', `${tx.source} to ${tx.destination}`]);
         } else if (isHistoryEVMTx(tx)) {
             const amtStr = bnToBigAvaxC(tx.amount).toString();
             const amtSigned = tx.isSender ? `-${amtStr}` : amtStr;
             if (!tx.input) {
                 const addr = tx.isSender ? tx.to : tx.from;
-                rows.push([tx.id, dateStr, tx.type, 'AVAX', amtSigned, addr, `C`]);
+                rows.push([tx.id, dateStr, tx.type, 'METAL', amtSigned, addr, `C`]);
             }
         }
     });

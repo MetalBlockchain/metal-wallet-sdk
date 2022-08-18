@@ -1,5 +1,5 @@
 import { createGraphForC, createGraphForP, createGraphForX, UniversalTx } from '@/UniversalTx';
-import { BN } from 'avalanche';
+import { BN } from '@metalblockchain/metaljs';
 import { pChain, xChain } from '@/Network/network';
 
 jest.mock('@/Network/network', () => {

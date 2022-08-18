@@ -1,7 +1,7 @@
-import { Avalanche } from 'avalanche/dist';
-import { AVMAPI } from 'avalanche/dist/apis/avm';
-import { InfoAPI } from 'avalanche/dist/apis/info';
-import { EVMAPI } from 'avalanche/dist/apis/evm';
+import { Metal } from '@metalblockchain/metaljs/dist';
+import { AVMAPI } from '@metalblockchain/metaljs/dist/apis/avm';
+import { InfoAPI } from '@metalblockchain/metaljs/dist/apis/info';
+import { EVMAPI } from '@metalblockchain/metaljs/dist/apis/evm';
 import Web3 from 'web3';
 import { DefaultConfig } from './constants';
 import { NetworkConfig, NetworkConfigRpc, NetworkProtocolType } from './types';
@@ -20,7 +20,7 @@ import { getEthersJsonRpcProvider } from '@/Network/getEthersProvider';
 import { ethers } from 'ethers';
 import { HttpClient } from '@/helpers/http_client';
 
-export const avalanche: Avalanche = createAvalancheProvider(DefaultConfig);
+export const avalanche: Metal = createAvalancheProvider(DefaultConfig);
 
 export const xChain: AVMAPI = avalanche.XChain();
 export const cChain: EVMAPI = avalanche.CChain();
@@ -117,7 +117,7 @@ export async function getConfigFromUrl(url: string): Promise<NetworkConfig> {
     let netID = await getNetworkIdFromURL(url);
     let protocol: NetworkProtocolType = urlObj.protocol === 'http:' ? 'http' : 'https';
 
-    let connection = new Avalanche(urlObj.hostname, parseInt(portStr), protocol, netID);
+    let connection = new Metal(urlObj.hostname, parseInt(portStr), protocol, netID);
     // TODO: Use a helper for this
     let connectionEvm = new Web3(getProviderFromUrl(urlObj.href + 'ext/bc/C/rpc') as any);
 
