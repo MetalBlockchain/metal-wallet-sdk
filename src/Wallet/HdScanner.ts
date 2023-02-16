@@ -148,7 +148,7 @@ export class HdScanner {
         let hdKey = this.getHdKeyForIndex(index);
         let pkHex = hdKey.privateKey!.toString('hex');
 
-        let pkBuf: Buffer = new Buffer(pkHex, 'hex');
+        let pkBuf: Buffer = Buffer.from(pkHex, 'hex');
 
         let keychain = xChain.newKeyChain();
         let keypair = keychain.importKey(pkBuf);
@@ -164,7 +164,7 @@ export class HdScanner {
         let hdKey = this.getHdKeyForIndex(index);
         let pkHex = hdKey.privateKey!.toString('hex');
 
-        let pkBuf: Buffer = new Buffer(pkHex, 'hex');
+        let pkBuf: Buffer = Buffer.from(pkHex, 'hex');
 
         let keychain = pChain.newKeyChain();
         let keypair = keychain.importKey(pkBuf);

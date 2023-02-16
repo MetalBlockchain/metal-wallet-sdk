@@ -70,7 +70,12 @@ import { NO_NETWORK } from '@/errors';
 import { avaxCtoX, bnToLocaleString, getTxFeeP, getTxFeeX, waitTxC, waitTxEvm, waitTxP, waitTxX } from '@/utils';
 import { EvmWalletReadonly } from '@/Wallet/EVM/EvmWalletReadonly';
 import EventEmitter from 'events';
-import { getTransactionSummary, getTransactionSummaryEVM, HistoryItemType } from '@/History';
+import {
+    getHistoryForOwnedAddressesRaw,
+    getTransactionSummary,
+    getTransactionSummaryEVM,
+    HistoryItemType,
+} from '@/History';
 import { bintools } from '@/common';
 import { ChainIdType } from '@/common';
 import {
@@ -498,7 +503,7 @@ export abstract class WalletProvider {
         this.utxosX = await avmGetAllUTXOs(addresses);
 
         await this.updateUnknownAssetsX();
-        this.updateBalanceX();
+        await this.updateBalanceX();
 
         return this.utxosX;
     }
@@ -604,6 +609,7 @@ export abstract class WalletProvider {
             if (type != AVMConstants.SECPXFEROUTPUTID) continue;
 
             let locktime = out.getLocktime();
+            let threshold = out.getThreshold();
             let amount = (out as AmountOutput).getAmount();
             let assetIdBuff = utxo.getAssetID();
             let assetId = bintools.cb58Encode(assetIdBuff);
@@ -612,10 +618,18 @@ export abstract class WalletProvider {
 
             if (!asset) {
                 let assetInfo = await getAssetDescription(assetId);
-                asset = { locked: new BN(0), unlocked: new BN(0), meta: assetInfo };
+                asset = {
+                    locked: new BN(0),
+                    unlocked: new BN(0),
+                    multisig: new BN(0),
+                    meta: assetInfo,
+                };
             }
 
-            if (locktime.lte(unixNow)) {
+            if (threshold > 1) {
+                // Multisig
+                asset.multisig = asset.multisig.add(amount);
+            } else if (locktime.lte(unixNow)) {
                 // not locked
                 asset.unlocked = asset.unlocked.add(amount);
             } else {
@@ -633,6 +647,7 @@ export abstract class WalletProvider {
             res[avaxID] = {
                 locked: new BN(0),
                 unlocked: new BN(0),
+                multisig: new BN(0),
                 meta: assetInfo,
             };
         }
@@ -694,6 +709,7 @@ export abstract class WalletProvider {
         let unlocked = new BN(0);
         let locked = new BN(0);
         let lockedStakeable = new BN(0);
+        let multisig = new BN(0);
 
         let utxos = this.utxosP.getAllUTXOs();
         let unixNow = UnixNow();
@@ -702,10 +718,14 @@ export abstract class WalletProvider {
             let utxo = utxos[i];
             let out = utxo.getOutput();
             let type = out.getOutputID();
+            let threshold = out.getThreshold();
 
             let amount = (out as AmountOutput).getAmount();
 
-            if (type === PlatformVMConstants.STAKEABLELOCKOUTID) {
+            // If threshold is > 1, its a multisig UTXO
+            if (threshold > 1) {
+                multisig.iadd(amount);
+            } else if (type === PlatformVMConstants.STAKEABLELOCKOUTID) {
                 let locktime = (out as StakeableLockOut).getStakeableLocktime();
                 if (locktime.lte(unixNow)) {
                     unlocked.iadd(amount);
@@ -726,6 +746,7 @@ export abstract class WalletProvider {
             unlocked,
             locked,
             lockedStakeable: lockedStakeable,
+            multisig,
         };
     }
 
@@ -1292,6 +1313,19 @@ export abstract class WalletProvider {
             await this.getAllAddressesP(),
             this.getEvmAddressBech(),
             this.getAddressC(),
+            limit
+        );
+    }
+
+    /**
+     * Return sorted history from Ortelius.
+     * @param limit
+     */
+    async getHistoryRaw(limit = 0) {
+        return getHistoryForOwnedAddressesRaw(
+            await this.getAllAddressesX(),
+            await this.getAllAddressesP(),
+            this.getEvmAddressBech(),
             limit
         );
     }
