@@ -3,11 +3,11 @@
 -   This library is under development and there might be frequent breaking changes.
 -   Audit pending.
 
-# Avalanche Wallet SDK (Beta)
+# Metal Wallet SDK (Beta)
 
-Avalanche wallet SDK is a typescript library for creating and managing decentralized wallets.
+Metal wallet SDK is a typescript library for creating and managing decentralized wallets.
 
-It provides high level methods to transact on Avalanche's primary networks: X, P and C.
+It provides high level methods to transact on Metal's primary networks: X, P and C.
 
 Wallet types supported:
 
@@ -16,7 +16,7 @@ Wallet types supported:
 -   Mnemonic Wallets
 -   Public Mnemonic Wallets (XPUB)
 
-Using the avalanche-wallet-sdk developers can:
+Using the metal-wallet-sdk developers can:
 
 -   Receive and send tokens and NFTs.
 -   Cross chain transfer
@@ -29,11 +29,11 @@ Using the avalanche-wallet-sdk developers can:
 
 With npm
 
-`npm install --save @avalabs/avalanche-wallet-sdk`
+`npm install --save @metalblockchain/metal-wallet-sdk`
 
 or yarn
 
-`yarn add @avalabs/avalanche-wallet-sdk`
+`yarn add @metalblockchain/metal-wallet-sdk`
 
 ## Local build
 

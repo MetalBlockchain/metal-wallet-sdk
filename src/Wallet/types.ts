@@ -88,7 +88,7 @@ export interface ERC20Balance {
 export interface ILedgerAppConfig {
     version: string;
     commit: string;
-    name: 'Avalanche';
+    name: 'Metal';
 }
 
 export type WalletEventType = 'addressChanged' | 'balanceChangedX' | 'balanceChangedP' | 'balanceChangedC' | 'hd_ready';
