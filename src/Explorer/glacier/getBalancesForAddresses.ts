@@ -1,6 +1,6 @@
 import { GetBalancesParams } from './models';
 import Glacier from './Glacier';
-import { BN } from 'avalanche';
+import { BN } from '@metalblockchain/metaljs';
 import { splitToParts } from './utils';
 import {
     ListPChainBalancesResponse,
