@@ -8,7 +8,7 @@ export const MainnetConfig: NetworkConfig = {
     apiIp: 'api.metalblockchain.org',
     apiPort: 443,
     explorerURL: 'https://explorerapi.metalblockchain.org',
-    explorerSiteURL: 'https://explorer.avax.network',
+    explorerSiteURL: 'https://explorer.metalblockchain.org',
     networkID: 1,
     // @ts-ignore
     xChainID: Defaults.network[1]['X']['blockchainID'],
