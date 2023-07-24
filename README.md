@@ -6,7 +6,7 @@
 
 Metal wallet SDK is a typescript library for creating and managing decentralized wallets.
 
-It provides high level methods to transact on Metal's primary networks: X, P and C.
+It provides high level methods to transact on Metal's primary networks: X, P, C and A.
 
 Wallet types supported:
 
