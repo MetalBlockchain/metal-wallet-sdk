@@ -334,18 +334,12 @@ export async function estimateErc721TransferGas(contract: string, from: string, 
  * @param gasPrice Given in WEI
  */
 export async function estimateAvaxGas(from: string, to: string, amount: BN, gasPrice: BN): Promise<number> {
-    try {
-        return await web3.eth.estimateGas({
-            from,
-            to,
-            gasPrice: `0x${gasPrice.toString('hex')}`,
-            value: `0x${amount.toString('hex')}`,
-        });
-    } catch (e) {
-        // TODO: Throws an error if we do not have enough avax balance
-        //TODO: Is it ok to return 21000
-        return 21000;
-    }
+    return await web3.eth.estimateGas({
+        from,
+        to,
+        gasPrice: `0x${gasPrice.toString('hex')}`,
+        value: `0x${amount.toString('hex')}`,
+    });
 }
 
 export enum AvmTxNameEnum {
