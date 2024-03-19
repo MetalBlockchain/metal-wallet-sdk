@@ -10,7 +10,7 @@ import {
 
 import Web3 from 'web3';
 const addrEVM = '0x6a23c16777a3A194b2773df90FEB8753A8e619Ee';
-const addrC = '0x6a23c16777a3A194b2773df90FEB8753A8e619Ee';
+const addrC = 'C-metal19v8flm9qt2gv2tctztjjerlgs4k3vgjsvdlgjj';
 const addrP = 'P-metal19v8flm9qt2gv2tctztjjerlgs4k3vgjsvdlgjj';
 const addrX = 'X-metal19v8flm9qt2gv2tctztjjerlgs4k3vgjsvdlgjj';
 
