@@ -31,6 +31,7 @@ export interface ListStakingParams {
 
 export type TransactionTypeName =
     | 'AddDelegatorTx'
+    | 'AddPermissionlessDelegatorTx'
     | `AddPermissionlessValidatorTx`
     | `AddSubnetValidatorTx`
     | `AddValidatorTx`

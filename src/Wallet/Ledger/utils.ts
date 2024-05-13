@@ -2,7 +2,7 @@ import Eth from '@ledgerhq/hw-app-eth';
 import Transport from '@ledgerhq/hw-transport';
 import { LedgerProviderType, ObsidianProvider, ZondaxProvider } from '@/Wallet/Ledger/provider';
 import { ZONDAX_VERSION } from '@/Wallet/Ledger/provider/constants';
-import { AddDelegatorTx, AddValidatorTx } from '@metalblockchain/metaljs/dist/apis/platformvm';
+import { AddDelegatorTx, AddValidatorTx, AddPermissionlessValidatorTx, AddPermissionlessDelegatorTx } from '@metalblockchain/metaljs/dist/apis/platformvm/validationtx'
 import { bintools } from '@/common';
 import { avalanche } from '@/Network';
 import { BaseTx as AVMBaseTx } from '@metalblockchain/metaljs/dist/apis/avm';
@@ -52,7 +52,7 @@ export async function isObsidianApp(t: Transport): Promise<boolean> {
  * @param tx
  */
 export function getStakeOutAddresses(tx: AVMBaseTx | PlatformBaseTx | EVMBaseTx) {
-    if (tx instanceof AddValidatorTx || tx instanceof AddDelegatorTx) {
+    if (tx instanceof AddValidatorTx || tx instanceof AddDelegatorTx || tx instanceof AddPermissionlessValidatorTx || tx instanceof AddPermissionlessDelegatorTx) {
         const allAddrs = tx
             .getStakeOuts()
             .map((out) =>
