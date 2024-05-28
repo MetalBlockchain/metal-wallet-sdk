@@ -78,7 +78,7 @@
     },
     "dependencies": {
         "@avalabs/glacier-sdk": "2.8.0-alpha.92",
-        "@avalabs/hw-app-avalanche": "0.6.6",
+        "@avalabs/hw-app-avalanche": "0.14.1",
         "@ethereumjs/common": "2.6.0",
         "@ethereumjs/tx": "3.4.0",
         "@ledgerhq/hw-app-eth": "6.29.6",
