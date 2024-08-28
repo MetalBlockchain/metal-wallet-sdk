@@ -56,6 +56,8 @@ import {
     Tx as PlatformTx,
     PlatformVMConstants,
     StakeableLockOut,
+    ProofOfPossession,
+    Signer
 } from '@metalblockchain/metaljs/dist/apis/platformvm';
 import {
     UnsignedTx as EVMUnsignedTx,
@@ -63,7 +65,7 @@ import {
     UTXOSet as EVMUTXOSet,
 } from '@metalblockchain/metaljs/dist/apis/evm';
 
-import { PayloadBase, UnixNow } from '@metalblockchain/metaljs/dist/utils';
+import { PayloadBase, UnixNow, PrimaryNetworkID } from '@metalblockchain/metaljs/dist/utils';
 import { getAssetDescription } from '@/Asset/Assets';
 import { getErc20Token } from '@/Asset/Erc20';
 import { NO_NETWORK } from '@/errors';
@@ -1118,8 +1120,10 @@ export abstract class WalletProvider {
         start: Date,
         end: Date,
         delegationFee: number,
+        signerPublicKey: string,
+        signerSignature: string,
         rewardAddress?: string,
-        utxos?: PlatformUTXO[]
+        utxos?: PlatformUTXO[],
     ): Promise<string> {
         let utxoSet = this.utxosP;
 
@@ -1147,17 +1151,21 @@ export abstract class WalletProvider {
         let startTime = new BN(Math.round(start.getTime() / 1000));
         let endTime = new BN(Math.round(end.getTime() / 1000));
 
-        const unsignedTx = await pChain.buildAddValidatorTx(
+        const signer = new Signer(28, new ProofOfPossession(signerPublicKey, signerSignature))
+        
+        const unsignedTx = await pChain.buildAddPermissionlessValidatorTx(
             utxoSet,
             [stakeReturnAddr],
-            pAddressStrings, // from
-            [changeAddress], // change
+            pAddressStrings,
+            [changeAddress],
             nodeID,
             startTime,
             endTime,
             stakeAmount,
             [rewardAddress],
-            delegationFee
+            delegationFee,
+            PrimaryNetworkID,
+            signer
         );
 
         let tx = await this.signP(unsignedTx);
@@ -1202,7 +1210,7 @@ export abstract class WalletProvider {
         let startTime = new BN(Math.round(start.getTime() / 1000));
         let endTime = new BN(Math.round(end.getTime() / 1000));
 
-        const unsignedTx = await pChain.buildAddDelegatorTx(
+        const unsignedTx = await pChain.buildAddPermissionlessDelegatorTx(
             utxoSet,
             [stakeReturnAddr],
             pAddressStrings,
@@ -1211,7 +1219,8 @@ export abstract class WalletProvider {
             startTime,
             endTime,
             stakeAmount,
-            [rewardAddress] // reward address
+            [rewardAddress], // reward address
+            pChain.getBlockchainID()
         );
 
         const tx = await this.signP(unsignedTx);
