@@ -1,6 +1,6 @@
 import { splitToParts } from './utils';
 import Glacier from './Glacier';
-import { Network } from '@avalabs/glacier-sdk';
+import { Network } from '@metalblockchain/glacier-sdk';
 import { isFujiNetworkId, isMainnetNetworkId } from '@/Network';
 
 export async function listChainsForAddresses(addrs: string[], netID: number) {
@@ -9,7 +9,7 @@ export async function listChainsForAddresses(addrs: string[], netID: number) {
 
     // Cannot use glacier for other networks
     if (!isMainnetNetworkId(netID) && !isFujiNetworkId(netID)) return [];
-    const network = isMainnetNetworkId(netID) ? Network.MAINNET : Network.FUJI;
+    const network = isMainnetNetworkId(netID) ? Network.MAINNET : Network.TAHOE;
 
     const promises = addrParts.map((addresses) => {
         return Glacier.primaryNetwork.getChainAddresses({

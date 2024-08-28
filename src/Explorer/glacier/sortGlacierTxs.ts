@@ -1,5 +1,5 @@
 import { TransactionType, CChainTransaction, XChainTransaction } from './models';
-import { SortOrder, PChainTransaction } from '@avalabs/glacier-sdk';
+import { SortOrder, PChainTransaction } from '@metalblockchain/glacier-sdk';
 
 export function sortGlacierTxs(txs: TransactionType[], sortOrder: SortOrder = SortOrder.DESC) {
     return txs.sort((a, b) => {

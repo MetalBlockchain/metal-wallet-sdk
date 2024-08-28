@@ -11,7 +11,7 @@ import {
     Utxo,
     PChainConsumedUtxo,
     PChainEmittedUtxo,
-} from '@avalabs/glacier-sdk';
+} from '@metalblockchain/glacier-sdk';
 
 export type XChainTransaction = XChainLinearTransaction | XChainNonLinearTransaction;
 export interface GetBalancesParams {

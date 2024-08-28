@@ -1,4 +1,4 @@
-import { PChainConsumedUtxo, Utxo, PChainEmittedUtxo } from '@avalabs/glacier-sdk';
+import { PChainConsumedUtxo, Utxo, PChainEmittedUtxo } from '@metalblockchain/glacier-sdk';
 
 /**
  * Check if the UTXO is owned by one of the given addresses

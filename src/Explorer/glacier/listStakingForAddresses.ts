@@ -3,12 +3,12 @@ import { ListStakingParams } from './models';
 import { splitToParts } from './utils';
 import { filterDuplicateGlacierTxs } from './filterDuplicateGlacierTxs';
 import Glacier from './Glacier';
-import { Network, PChainId, PChainTransaction, SortOrder } from '@avalabs/glacier-sdk';
+import { Network, PChainId, PChainTransaction, SortOrder } from '@metalblockchain/glacier-sdk';
 
 export async function listStakingForAddresses(addrs: string[], netID: number) {
     if (!addrs.length) return [];
 
-    const network = isMainnetNetworkId(netID) ? Network.MAINNET : Network.FUJI;
+    const network = isMainnetNetworkId(netID) ? Network.MAINNET : Network.TAHOE;
 
     // Cannot use glacier for other networks
     if (!isMainnetNetworkId(netID) && !isFujiNetworkId(netID)) return [];
