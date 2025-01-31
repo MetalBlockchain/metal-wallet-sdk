@@ -159,6 +159,9 @@ export async function calculatePlatformImportFee(): Promise<BN> {
                   )
             )
         ],
+        [],
+        undefined,
+        bintools.cb58Decode(PlatformChainID),
         [
             new TransferableInput(
                 Buffer.alloc(32, 0),
@@ -167,8 +170,6 @@ export async function calculatePlatformImportFee(): Promise<BN> {
                 new SECPTransferInput(amount)
             )
         ],
-        undefined,
-        bintools.cb58Decode(PlatformChainID),
     );
     const unsigned = new UnsignedTx(importTx);
     const fee = calculateFee(unsigned, feeConfig.weights, BigInt(feeState.price));
