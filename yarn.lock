@@ -1936,12 +1936,13 @@
   resolved "https://registry.npmjs.org/@ledgerhq/logs/-/logs-6.12.0.tgz"
   integrity sha512-ExDoj1QV5eC6TEbMdLUMMk9cfvNKhhv5gXol4SmULRVCx/3iyCPhJ74nsb3S0Vb+/f+XujBEj3vQn5+cwS0fNA==
 
-"@metalblockchain/glacier-sdk@1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@metalblockchain/glacier-sdk/-/glacier-sdk-1.0.16.tgz#3f06e24f1f69552001335e11f6471e60dbdc7d40"
-  integrity sha512-u+BJbN79TWcod5yiW0I2tY7pwNOJLhCfgKdaIxmd0dgJMJzierdn5zgtCo2WU5S3K3HKHYdr+XI8XKHwFl7fLg==
+"@metalblockchain/glacier-sdk@1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@metalblockchain/glacier-sdk/-/glacier-sdk-1.0.20.tgz#f55fb8f95ae6cd6ea61995b4f320a390a6a805d4"
+  integrity sha512-EyuTTGgKTMtN8E64jJWzmijNEKfr/WEY6OebZigUFMiG+Z0/UhQZWUAjPXUWiPD9WN4NGWiXV+hyHbxcvDhYbA==
   dependencies:
     "@types/node" "^22.12.0"
+    tslib "^2.8.1"
     typescript "^5.7.3"
 
 "@metalblockchain/metaljs@3.16.13":
@@ -11325,6 +11326,11 @@ tslib@^2.1.0:
   version "2.6.2"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
+
+tslib@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
+  integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
 
 tsutils@^3.21.0:
   version "3.21.0"

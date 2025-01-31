@@ -81,7 +81,7 @@
         "@ethereumjs/tx": "3.4.0",
         "@ledgerhq/hw-app-eth": "6.29.6",
         "@ledgerhq/hw-transport": "^6.27.5",
-        "@metalblockchain/glacier-sdk": "1.0.16",
+        "@metalblockchain/glacier-sdk": "1.0.20",
         "@metamask/eth-sig-util": "4.0.0",
         "@obsidiansystems/hw-app-avalanche": "0.2.2",
         "@openzeppelin/contracts": "^4.9.6",

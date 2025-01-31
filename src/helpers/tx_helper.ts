@@ -143,6 +143,14 @@ export async function calculatePlatformImportFee(): Promise<BN> {
     const feeConfig = await pChain.getFeeConfig();
     const feeState = await pChain.getFeeState();
     const amount = new BN(1);
+    const importIn = new TransferableInput(
+        Buffer.alloc(32, 16),
+        Buffer.alloc(4, 16),
+        assetId,
+        new SECPTransferInput(amount)
+    );
+    importIn.getInput().addSignatureIdx(1, Buffer.alloc(32, 16));
+
     const importTx = new ImportTx(
         avalanche.getNetworkID(),
         bintools.cb58Decode(PlatformChainID),
@@ -162,14 +170,7 @@ export async function calculatePlatformImportFee(): Promise<BN> {
         [],
         undefined,
         bintools.cb58Decode(PlatformChainID),
-        [
-            new TransferableInput(
-                Buffer.alloc(32, 0),
-                Buffer.alloc(4, 0),
-                assetId,
-                new SECPTransferInput(amount)
-            )
-        ],
+        [importIn],
     );
     const unsigned = new UnsignedTx(importTx);
     const fee = calculateFee(unsigned, feeConfig.weights, BigInt(feeState.price));
