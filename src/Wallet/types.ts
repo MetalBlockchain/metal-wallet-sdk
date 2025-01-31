@@ -4,7 +4,6 @@ import { BN } from '@metalblockchain/metaljs';
 
 import { MnemonicWallet } from '@/Wallet/MnemonicWallet';
 import { SingletonWallet } from '@/Wallet/SingletonWallet';
-import { LedgerWallet } from '@/Wallet/Ledger';
 
 import { iAssetDescriptionClean } from '@/Asset/types';
 
@@ -20,7 +19,7 @@ export type ExportChainsC = 'X' | 'P';
 export type HdChainType = 'X' | 'P';
 
 export type WalletNameType = 'mnemonic' | 'ledger' | 'singleton' | 'xpub';
-export type WalletType = MnemonicWallet | SingletonWallet | LedgerWallet;
+export type WalletType = MnemonicWallet | SingletonWallet;
 
 export interface WalletBalanceX {
     [assetId: string]: AssetBalanceX;

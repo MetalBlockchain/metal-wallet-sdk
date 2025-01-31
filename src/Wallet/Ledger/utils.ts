@@ -1,6 +1,6 @@
 import Eth from '@ledgerhq/hw-app-eth';
 import Transport from '@ledgerhq/hw-transport';
-import { LedgerProviderType, ObsidianProvider, ZondaxProvider } from '@/Wallet/Ledger/provider';
+import { LedgerProviderType, ObsidianProvider } from '@/Wallet/Ledger/provider';
 import { ZONDAX_VERSION } from '@/Wallet/Ledger/provider/constants';
 import { AddDelegatorTx, AddValidatorTx } from '@metalblockchain/metaljs/dist/apis/platformvm';
 import { bintools } from '@/common';
@@ -14,7 +14,6 @@ import { UnsignedTx as EVMUnsignedTx } from '@metalblockchain/metaljs/dist/apis/
 
 import bip32 from '@/utils/bip32';
 import AppObsidian from '@obsidiansystems/hw-app-avalanche';
-import AppZondax from '@avalabs/hw-app-avalanche';
 
 /**
  *
@@ -27,8 +26,8 @@ export function getEthAddressKeyFromAccountKey(xpub: string, index: number) {
     return node.toBase58();
 }
 
-export function getAppAvax(transport: Transport, provider: LedgerProviderType): AppObsidian | AppZondax {
-    return provider === 'obsidian' ? ObsidianProvider.getApp(transport) : ZondaxProvider.getApp(transport);
+export function getAppAvax(transport: Transport): AppObsidian {
+    return ObsidianProvider.getApp(transport);
 }
 
 export function getAppEth(transport: Transport): Eth {
@@ -36,14 +35,12 @@ export function getAppEth(transport: Transport): Eth {
     return new Eth(transport, 'w0w');
 }
 
-export async function getLedgerProvider(transport: Transport) {
-    const isObsidian = await isObsidianApp(transport);
-    return isObsidian ? ObsidianProvider : ZondaxProvider;
+export async function getLedgerProvider() {
+    const isObsidian = await isObsidianApp();
+    return ObsidianProvider;
 }
 
-export async function isObsidianApp(t: Transport): Promise<boolean> {
-    const versionZ = await ZondaxProvider.getVersion(t);
-    if (versionZ >= ZONDAX_VERSION) return false;
+export async function isObsidianApp(): Promise<boolean> {
     return true;
 }
 
