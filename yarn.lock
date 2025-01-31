@@ -1944,10 +1944,10 @@
     "@types/node" "^22.12.0"
     typescript "^5.7.3"
 
-"@metalblockchain/metaljs@3.16.0":
-  version "3.16.0"
-  resolved "https://registry.npmjs.org/@metalblockchain/metaljs/-/metaljs-3.16.0.tgz"
-  integrity sha512-Xp5UuwtbIaMfud2Ey18tq+4KaFYnDOfa2Dbkqt6X30BUHuFu3mzS44FwOPEJGthpKIhI4k7QgSLmf/DFyERq8g==
+"@metalblockchain/metaljs@3.16.13":
+  version "3.16.13"
+  resolved "https://registry.yarnpkg.com/@metalblockchain/metaljs/-/metaljs-3.16.13.tgz#109f750436d58a61f64e8db87a6f14a67e56aa70"
+  integrity sha512-Uv+mfRDnnUxVIeOXGgRiufAsBJN3b7TGwjSJ/vH+9ij9oU0JiLpgkv0GdEOjXK/Y/qE25i19TqYpxcfWPj8sBQ==
   dependencies:
     "@noble/curves" "^1.3.0"
     assert "2.0.0"

@@ -1,4 +1,4 @@
-import { cChain, ethersProvider, pChain, web3, xChain } from '@/Network/network';
+import { avalanche, cChain, ethersProvider, pChain, web3, xChain } from '@/Network/network';
 
 import { BN, Buffer } from '@metalblockchain/metaljs';
 import {
@@ -9,13 +9,14 @@ import {
     UTXO as AVMUTXO,
     UTXOSet as AVMUTXOSet,
     UTXOSet,
+    ExportTx as AVMExportTx,
 } from '@metalblockchain/metaljs/dist/apis/avm';
 
-import { PayloadBase } from '@metalblockchain/metaljs/dist/utils';
+import { PayloadBase, PlatformChainID } from '@metalblockchain/metaljs/dist/utils';
 import { OutputOwners } from '@metalblockchain/metaljs/dist/common';
-import { PlatformVMConstants, UTXOSet as PlatformUTXOSet } from '@metalblockchain/metaljs/dist/apis/platformvm';
+import { PlatformVMConstants, UTXOSet as PlatformUTXOSet, ImportTx, calculateFee, UnsignedTx, TransferableOutput, SECPOwnerOutput, TransferableInput, SECPTransferInput, SECPTransferOutput, KeyChain } from '@metalblockchain/metaljs/dist/apis/platformvm';
 
-import { EVMConstants } from '@metalblockchain/metaljs/dist/apis/evm';
+import { EVMConstants, ExportTx as EVMExportTx } from '@metalblockchain/metaljs/dist/apis/evm';
 
 import { FeeMarketEIP1559Transaction, Transaction } from '@ethereumjs/tx';
 import EthereumjsCommon from '@ethereumjs/common';
@@ -134,6 +135,45 @@ export async function calculatePlatformExportFee(
     const tx = await buildPlatformExportTransaction(utxoSet, fromAddresses, toAddress, amount, sourceChangeAddress, destinationChain);
 
     return tx.getBurn(assetId);
+}
+
+// We simulate a simple import tx with one atomic input and 1 platform output
+export async function calculatePlatformImportFee(): Promise<BN> {
+    const assetId = await pChain.getAVAXAssetID();
+    const feeConfig = await pChain.getFeeConfig();
+    const feeState = await pChain.getFeeState();
+    const amount = new BN(1);
+    const importTx = new ImportTx(
+        avalanche.getNetworkID(),
+        bintools.cb58Decode(PlatformChainID),
+        [
+            new TransferableOutput(
+                assetId,
+                new SECPTransferOutput(
+                    amount,
+                    [
+                        new KeyChain(avalanche.getHRP(), "P").makeKey().getAddress()
+                    ],
+                    new BN(0),
+                    1
+                  )
+            )
+        ],
+        [
+            new TransferableInput(
+                Buffer.alloc(32, 0),
+                Buffer.alloc(4, 0),
+                assetId,
+                new SECPTransferInput(amount)
+            )
+        ],
+        undefined,
+        bintools.cb58Decode(PlatformChainID),
+    );
+    const unsigned = new UnsignedTx(importTx);
+    const fee = calculateFee(unsigned, feeConfig.weights, BigInt(feeState.price));
+
+    return new BN(fee.toString(10));
 }
 
 /**

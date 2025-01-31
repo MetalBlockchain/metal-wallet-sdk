@@ -56,6 +56,7 @@ import {
     Tx as PlatformTx,
     PlatformVMConstants,
     StakeableLockOut,
+    Signer,
 } from '@metalblockchain/metaljs/dist/apis/platformvm';
 import {
     UnsignedTx as EVMUnsignedTx,
@@ -63,7 +64,7 @@ import {
     UTXOSet as EVMUTXOSet,
 } from '@metalblockchain/metaljs/dist/apis/evm';
 
-import { PayloadBase, UnixNow } from '@metalblockchain/metaljs/dist/utils';
+import { PayloadBase, PlatformChainID, UnixNow } from '@metalblockchain/metaljs/dist/utils';
 import { getAssetDescription } from '@/Asset/Assets';
 import { getErc20Token } from '@/Asset/Erc20';
 import { NO_NETWORK } from '@/errors';
@@ -1118,8 +1119,9 @@ export abstract class WalletProvider {
         start: Date,
         end: Date,
         delegationFee: number,
+        signer: Signer,
         rewardAddress?: string,
-        utxos?: PlatformUTXO[]
+        utxos?: PlatformUTXO[],
     ): Promise<string> {
         let utxoSet = this.utxosP;
 
@@ -1147,7 +1149,7 @@ export abstract class WalletProvider {
         let startTime = new BN(Math.round(start.getTime() / 1000));
         let endTime = new BN(Math.round(end.getTime() / 1000));
 
-        const unsignedTx = await pChain.buildAddValidatorTx(
+        const unsignedTx = await pChain.buildAddPermissionlessValidatorTx(
             utxoSet,
             [stakeReturnAddr],
             pAddressStrings, // from
@@ -1157,7 +1159,9 @@ export abstract class WalletProvider {
             endTime,
             stakeAmount,
             [rewardAddress],
-            delegationFee
+            delegationFee,
+            PlatformChainID,
+            signer
         );
 
         let tx = await this.signP(unsignedTx);
@@ -1202,7 +1206,7 @@ export abstract class WalletProvider {
         let startTime = new BN(Math.round(start.getTime() / 1000));
         let endTime = new BN(Math.round(end.getTime() / 1000));
 
-        const unsignedTx = await pChain.buildAddDelegatorTx(
+        const unsignedTx = await pChain.buildAddPermissionlessDelegatorTx(
             utxoSet,
             [stakeReturnAddr],
             pAddressStrings,
@@ -1211,7 +1215,8 @@ export abstract class WalletProvider {
             startTime,
             endTime,
             stakeAmount,
-            [rewardAddress] // reward address
+            [rewardAddress], // reward address,
+            PlatformChainID
         );
 
         const tx = await this.signP(unsignedTx);
