@@ -9,8 +9,7 @@ import {
     CChainImportTransaction,
     SortOrder,
     Utxo,
-    PChainConsumedUtxo,
-    PChainEmittedUtxo,
+    PChainUtxo,
 } from '@metalblockchain/glacier-sdk';
 
 export type XChainTransaction = XChainLinearTransaction | XChainNonLinearTransaction;
@@ -48,7 +47,7 @@ export type TransactionTypeName =
 
 export type TransactionType = XChainTransaction | PChainTransaction | CChainImportTransaction | CChainExportTransaction;
 
-export type UtxoType = Utxo | PChainEmittedUtxo | PChainConsumedUtxo;
+export type UtxoType = Utxo | PChainUtxo;
 
 export function isTransactionX(tx: TransactionType): tx is XChainTransaction {
     return (tx as XChainTransaction).amountUnlocked !== undefined && (tx as XChainTransaction).memo !== undefined;
@@ -81,12 +80,12 @@ export interface GetTransactionsParams {
     sortOrder?: SortOrder;
 }
 
-export function isPChainEmittedUTXO(utxo: UtxoType): utxo is PChainEmittedUtxo {
-    return (utxo as PChainEmittedUtxo).assetId !== undefined;
+export function isPChainEmittedUTXO(utxo: UtxoType): utxo is PChainUtxo {
+    return (utxo as PChainUtxo).assetId !== undefined;
 }
 
-export function isPChainConsumedUTXO(utxo: UtxoType): utxo is PChainConsumedUtxo {
-    return (utxo as PChainConsumedUtxo).fromTx !== undefined;
+export function isPChainConsumedUTXO(utxo: UtxoType): utxo is PChainUtxo {
+    return (utxo as PChainUtxo).consumedOnChainId !== undefined;
 }
 
 export function isUtxo(utxo: UtxoType): utxo is Utxo {

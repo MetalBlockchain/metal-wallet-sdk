@@ -122,6 +122,20 @@ export async function buildPlatformExportTransaction(
     ]);
 }
 
+export async function calculatePlatformExportFee(
+    utxoSet: PlatformUTXOSet,
+    fromAddresses: string[],
+    toAddress: string,
+    amount: BN, // export amount + fee
+    sourceChangeAddress: string,
+    destinationChain: ExportChainsP
+): Promise<BN> {
+    const assetId = await pChain.getAVAXAssetID();
+    const tx = await buildPlatformExportTransaction(utxoSet, fromAddresses, toAddress, amount, sourceChangeAddress, destinationChain);
+
+    return tx.getBurn(assetId);
+}
+
 /**
  *
  * @param fromAddresses

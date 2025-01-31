@@ -12,7 +12,7 @@ export async function listChainsForAddresses(addrs: string[], netID: number) {
     const network = isMainnetNetworkId(netID) ? Network.MAINNET : Network.TAHOE;
 
     const promises = addrParts.map((addresses) => {
-        return Glacier.primaryNetwork.getChainAddresses({
+        return Glacier.primaryNetwork.getChainIdsForAddresses({
             addresses: addresses.join(','),
             network,
         });

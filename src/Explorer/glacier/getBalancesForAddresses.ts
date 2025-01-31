@@ -14,7 +14,7 @@ export async function getBalancesForAddresses(config: GetBalancesParams) {
     const addressBuckets = splitToParts<string>(config.addresses, addressLimit);
 
     const promises = addressBuckets.map((bucketAddrs) => {
-        return Glacier.primaryNetwork.getBalancesByAddresses({
+        return Glacier.primaryNetworkBalances.getBalancesByAddresses({
             ...config,
             addresses: bucketAddrs.join(','),
         });
@@ -37,11 +37,8 @@ export async function getBalancesForAddresses(config: GetBalancesParams) {
     res.forEach((val) => {
         if (isPChainBalancesResponse(val)) {
             unlockedUnstaked.iadd(new BN(val.balances.unlockedUnstaked ? val.balances.unlockedUnstaked[0].amount : 0));
-
-            lockedUnstaked.iadd(new BN(val.balances.lockedUnstaked ? val.balances.lockedUnstaked[0].amount : 0));
-
+            lockedUnstaked.iadd(new BN(val.balances.lockedPlatform ? val.balances.lockedPlatform[0].amount : 0));
             unlockedStaked.iadd(new BN(val.balances.unlockedStaked ? val.balances.unlockedStaked[0].amount : 0));
-
             lockedStaked.iadd(new BN(val.balances.lockedStaked ? val.balances.lockedStaked[0].amount : 0));
         }
     });
